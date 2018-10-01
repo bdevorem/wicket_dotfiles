@@ -1,21 +1,23 @@
 set shell=/bin/bash
 set smartindent
 set smarttab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
 set nowrap
 set encoding=utf8
+set number
 
 "linebreak
 set lbr
 set tw=500
 
 syntax enable
-colorscheme molokai
+"colorscheme molokai
 syntax on
 
-
+set modeline
 "Line number Stuff
 "set relativenumber
 "set number
