@@ -1,7 +1,12 @@
 #
 # ~/.bashrc
 #
-
+export PYENV_ROOT=/usr/local/bin/pyenv
+export PATH="$PYENV_ROOT/bin:$PATH"
+#if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+ln -s /usr/local/Cellar/gcc@4.9/4.9.4_1/bin/g++-4.9 g++
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 #funkify bash prompt
 #PROMPT_COMMAND='export H1="`history 1|sed -e "s/^[\ 0-9]*//; s/[\d0\d31\d34\d39\d96\d127]*//g; s/\(.\{1,50\}\).*$/\1/g"`";history -a;echo -e "sgr0\ncnorm\nrmso"|tput -S'
 #PS1='\n\e[1;30m[\e[1;34m\u@\H\e[1;30m] \e[1;37m\w\e[0;37m\[\033]0;[ ${H1}... ] \w - \u@\H +$SHLVL @`tty 2>/dev/null` - [ `uptime` ]\007\]\n\[\]\$ '
@@ -14,6 +19,7 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/Library/TeX/texbin:$PATH"
 
 #Prompt stuffs
 #####################################################################
@@ -25,7 +31,7 @@ PURPLE='\[\033[35m\]'
 CYAN='\[\033[36m\]'
 WHITE='\[\033[37m\]'
 NIL='\[\033[00m\]'
-SHORT='\h'
+SHORT=`hostname -s`
 
 # System => color/hostname map:
 # UC: username color
@@ -145,6 +151,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+alias l='ls'
+alias la='ls -la'
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -167,8 +176,21 @@ export LC_MESSAGES="C"
 export LC_COLLATE=C
 export LANG=en_US.UTF-8
 
-#output system info 
-screenfetch -t
-
 #take away annoying beep
 #xset -b
+
+# OPAM configuration
+. /Users/bdevorem/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bdevorem/Desktop/google-cloud-sdk/path.bash.inc' ]; then source '/Users/bdevorem/Desktop/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bdevorem/Desktop/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/bdevorem/Desktop/google-cloud-sdk/completion.bash.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
