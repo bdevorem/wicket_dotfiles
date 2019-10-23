@@ -1,6 +1,10 @@
 #
 # ~/.bashrc
 #
+export PYENV_ROOT=/usr/local/bin/pyenv
+export PATH="$PYENV_ROOT/bin:$PATH"
+#if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+ln -s /usr/local/Cellar/gcc@4.9/4.9.4_1/bin/g++-4.9 g++
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 #funkify bash prompt
@@ -27,7 +31,7 @@ PURPLE='\[\033[35m\]'
 CYAN='\[\033[36m\]'
 WHITE='\[\033[37m\]'
 NIL='\[\033[00m\]'
-SHORT='\h'
+SHORT=`hostname -s`
 
 # System => color/hostname map:
 # UC: username color
@@ -54,7 +58,7 @@ function set_prompt() {
        _dirname="$_dirname/`basename "$_pwd"`"
     fi
     path="${LC}${_dirname}${NIL}"
-    myuser="${UC}\u@$:${NIL}"
+    myuser="${UC}\u@${SHORT}:${NIL}"
 
     # Dirtiness from:
     # http://henrik.nyh.se/2008/12/git-dirty-prompt#comment-8325834
@@ -146,6 +150,9 @@ esac
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+alias l='ls'
+alias la='ls -la'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

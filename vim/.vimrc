@@ -1,23 +1,33 @@
+filetype plugin indent on
 set shell=/bin/bash
-set smartindent
-set smarttab
 set tabstop=2
 set shiftwidth=2
-set softtabstop=2
 set expandtab
-set nowrap
+set smarttab
 set encoding=utf8
 set number
 
 "linebreak
-set lbr
-set tw=500
+"set lbr
+set tw=80
+set wrapmargin=2
 
 syntax enable
 "colorscheme molokai
 syntax on
 
 set modeline
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
 "Line number Stuff
 "set relativenumber
 "set number
@@ -27,8 +37,6 @@ set modeline
 
 "Pressing space in normal mode adds a new line
 nnoremap <space> o<esc>
-" 0 to ^
-map 0 ^
 
 "Yanks are added to the clipboard.
 set clipboard=unnamed
